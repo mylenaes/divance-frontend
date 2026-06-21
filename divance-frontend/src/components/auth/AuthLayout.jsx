@@ -1,0 +1,1 @@
+//Responsável pelo fundo degrade: rosa → bege → verde
