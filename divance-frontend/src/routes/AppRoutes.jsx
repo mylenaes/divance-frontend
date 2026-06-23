@@ -5,6 +5,7 @@ import Register from "../pages/Register";
 import ForgotPassword from "../pages/ForgotPassword";
 import Dashboard from "../pages/Dashboard";
 import NotFound from "../pages/NotFound";
+import TestPage from "../pages/TestPage";
 
 import PrivateRoute from "./PrivateRoute";
 
@@ -44,6 +45,8 @@ export default function AppRoutes() {
           path="*"
           element={<NotFound />}
         />
+
+        <Route path="/test" element={<TestPage />} />
 
       </Routes>
     </BrowserRouter>
