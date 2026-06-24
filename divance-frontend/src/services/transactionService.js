@@ -1,16 +1,11 @@
-import { api } from "./api";
+import api from './api';
 
-export const getTransactions = async () => {
-  const response = await api.get("/transactions");
+export async function getLatestTransactions(limit = 5) {
+  const { data } = await api.get('/transactions', {
+    params: { limit },
+  });
 
-  return response.data;
-};
-
-export const createTransaction = async (data) => {
-  const response = await api.post(
-    "/transactions",
-    data
-  );
-
-  return response.data;
-};
+  return Array.isArray(data)
+    ? data
+    : data.transactions || data.transacoes || data.items || data.content || [];
+}

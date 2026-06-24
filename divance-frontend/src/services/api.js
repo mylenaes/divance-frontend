@@ -1,10 +1,17 @@
-//Mais tarde vamos trocar pela URL do Render
-
 import axios from "axios";
 
-export const api = axios.create({
-  baseURL: "http://localhost:3000",
-  headers: {
-    "Content-Type": "application/json",
-  },
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_URL || "http://localhost:3000/api",
+  timeout: 10000,
 });
+
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    const message =
+      error.response?.data?.message || "Erro ao se comunicar com a API.";
+    return Promise.reject(new Error(message));
+  },
+);
+
+export default api;
