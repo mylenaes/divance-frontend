@@ -1,3 +1,5 @@
+//todos os botoes e as cores deles
+
 export default function Button({
   children,
   variant = "primary",

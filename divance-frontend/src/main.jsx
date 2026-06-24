@@ -6,6 +6,8 @@ import "./index.css";
 
 import { AuthProvider } from "./contexts/AuthContext";
 
+//import "./services/apiMock";
+
 ReactDOM.createRoot(
   document.getElementById("root")
 ).render(

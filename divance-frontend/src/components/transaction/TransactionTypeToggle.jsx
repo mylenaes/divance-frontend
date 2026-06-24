@@ -4,7 +4,6 @@ export default function TransactionTypeToggle({
 }) {
   return (
     <div className="flex gap-2 mb-4">
-
       <button
         type="button"
         onClick={() => onChange("income")}
@@ -42,7 +41,6 @@ export default function TransactionTypeToggle({
       >
         Despesa
       </button>
-
     </div>
   );
 }

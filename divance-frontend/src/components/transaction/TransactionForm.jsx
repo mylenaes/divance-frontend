@@ -5,17 +5,29 @@ import Button from "../common/Button";
 export default function TransactionForm({
   type,
   onClose,
+  transaction,
 }) {
-  const cofrinhos = [
+  const categories = [
     { value: "alimentacao", label: "Alimentação" },
     { value: "emergencia", label: "Emergência" },
     { value: "viagem", label: "Viagem" },
     { value: "shopping", label: "Shopping" },
   ];
 
-  return (
-    <form className="flex flex-col gap-3">
+  function handleSubmit(e) {
+    e.preventDefault();
 
+    if (transaction) {
+      console.log("EDITANDO:", transaction.id);
+    } else {
+      console.log("CRIANDO NOVA TRANSAÇÃO");
+    }
+
+    onClose();
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="flex flex-col gap-3">
       <Input
         label="Título:"
         placeholder={
@@ -23,27 +35,28 @@ export default function TransactionForm({
             ? "Ex: Salário, Achado no bolso..."
             : "Ex: Aluguel, Fatura..."
         }
+        defaultValue={transaction?.title || ""}
       />
 
       <div className="grid grid-cols-2 gap-2">
-
         <Input
           label="Valor:"
           placeholder="R$ 0,00"
+          defaultValue={transaction?.value || ""}
         />
 
         <Select
-          label="Cofrinho (opcional):"
-          options={cofrinhos}
+          label="Categoria:"
+          options={categories}
+          defaultValue={transaction?.category || ""}
         />
-
       </div>
 
       <Input
         label={
           type === "income"
-            ? "Forma de recebimento (opcional):"
-            : "Forma de pagamento (opcional):"
+            ? "Forma de recebimento:"
+            : "Forma de pagamento:"
         }
         placeholder="Ex: Pix, Dinheiro..."
       />
@@ -55,6 +68,7 @@ export default function TransactionForm({
 
         <textarea
           rows={4}
+          defaultValue={transaction?.notes || ""}
           className="
             w-full
             px-3
@@ -74,7 +88,6 @@ export default function TransactionForm({
       </label>
 
       <div className="flex gap-3 mt-2">
-
         <Button
           variant="secondary"
           type="button"
@@ -84,16 +97,10 @@ export default function TransactionForm({
           Cancelar
         </Button>
 
-        <Button
-          variant="primary"
-          type="submit"
-          fullWidth
-        >
-          Salvar
+        <Button variant="primary" type="submit" fullWidth>
+          {transaction ? "Atualizar" : "Salvar"}
         </Button>
-
       </div>
-
     </form>
   );
 }

@@ -1,5 +1,5 @@
-import { Link, useLocation } from "react-router-dom";
-import { LayoutDashboard, ArrowLeftRight } from "lucide-react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { LayoutDashboard, ArrowLeftRight, LogOut } from "lucide-react";
 import Logo from "../../assets/Divance.svg";
 
 export default function Sidebar({
@@ -7,6 +7,7 @@ export default function Sidebar({
   onClose,
 }) {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const menuItems = [
     {
@@ -20,6 +21,11 @@ export default function Sidebar({
       icon: ArrowLeftRight,
     },
   ];
+
+  function handleLogout() {
+    localStorage.removeItem("token");
+    navigate("/");
+  }
 
   return (
     <>
@@ -54,6 +60,9 @@ export default function Sidebar({
 
           z-50
 
+          flex
+          flex-col
+
           transform
           transition-transform
           duration-300
@@ -67,8 +76,7 @@ export default function Sidebar({
           lg:translate-x-0
         `}
       >
-        {/* Logo */}
-
+        {/* LOGO */}
         <div className="mb-10">
           <img
             src={Logo}
@@ -77,10 +85,8 @@ export default function Sidebar({
           />
         </div>
 
-        {/* Menu */}
-
-        <nav className="flex flex-col gap-2">
-
+        {/* MENU */}
+        <nav className="flex flex-col gap-2 flex-1">
           {menuItems.map((item) => {
             const Icon = item.icon;
 
@@ -111,14 +117,37 @@ export default function Sidebar({
                 `}
               >
                 <Icon size={18} />
-
-                <span>
-                  {item.name}
-                </span>
+                <span>{item.name}</span>
               </Link>
             );
           })}
         </nav>
+
+        {/* LOGOUT (FINAL DA SIDEBAR) */}
+        <button
+          onClick={handleLogout}
+          className="
+            mt-auto
+            flex
+            items-center
+            gap-3
+
+            px-4
+            py-3
+
+            rounded-xl
+
+            text-white
+
+            hover:bg-[#FF5B5B]
+            hover:text-white
+
+            transition-all
+          "
+        >
+          <LogOut size={18} />
+          <span>Sair</span>
+        </button>
       </aside>
     </>
   );
