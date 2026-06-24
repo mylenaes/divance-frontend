@@ -5,11 +5,8 @@ export default function Card({
   return (
     <div
       className={`
-        bg-white
         rounded-2xl
         shadow-sm
-        border
-        border-gray-200
         p-5
         ${className}
       `}

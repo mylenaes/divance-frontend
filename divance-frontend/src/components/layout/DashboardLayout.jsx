@@ -1,23 +1,37 @@
+import { useState } from "react";
+
 import Sidebar from "./Sidebar";
 import Header from "./Header";
 
 export default function DashboardLayout({
   children,
 }) {
+  const [sidebarOpen, setSidebarOpen] =
+    useState(false);
+
   return (
-    <div className="flex min-h-screen">
+    <div className="min-h-screen">
 
-      <Sidebar />
+      <Sidebar
+        isOpen={sidebarOpen}
+        onClose={() =>
+          setSidebarOpen(false)
+        }
+      />
 
-      <main className="flex-1">
+      <div className="lg:ml-[19rem]">
 
-        <Header />
+        <Header
+          onMenuClick={() =>
+            setSidebarOpen(true)
+          }
+        />
 
-        <div className="p-6">
+        <main className="p-6">
           {children}
-        </div>
+        </main>
 
-      </main>
+      </div>
 
     </div>
   );
